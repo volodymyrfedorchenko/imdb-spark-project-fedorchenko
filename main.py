@@ -1,6 +1,7 @@
 #!
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType,StructField, StringType, IntegerType
 
 def main():
 
@@ -10,8 +11,15 @@ def main():
                      .config(conf=SparkConf())
                      .getOrCreate())
 
-    name_basics_df = spark_session.read.csv('D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/name.basics.tsv.gz')
-    name_basics_df.show()
+    schema = StructType([ \
+        StructField('tconst', StringType(), True), \
+        StructField('parentTconst', StringType(), True), \
+        StructField('seasonNumber', IntegerType(), True), \
+        StructField('episodeNumber', IntegerType(), True) \
+        ])
+    name_basics_df = spark_session.read.csv('D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.episode.tsv.gz',
+                                            schema=schema)
+    name_basics_df.printSchema()
 
 if __name__ == '__main__':
     main()
