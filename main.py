@@ -19,7 +19,7 @@ def main():
         ])
     name_basics_df = spark_session.read.csv('D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.episode.tsv.gz',
                                             schema=schema)
-    name_basics_df.printSchema()
+    name_basics_df.show()
 
 if __name__ == '__main__':
     main()
