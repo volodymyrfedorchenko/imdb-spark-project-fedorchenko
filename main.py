@@ -1,7 +1,7 @@
 #!
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-import pyspark.sql.types as t
+#import pyspark.sql.types as t
 import pyspark.sql.functions as f
 
 import settings as s
@@ -16,8 +16,10 @@ def main():
                      .appName('imdb-spark-project-fedorchenko')
                      .config(conf=SparkConf())
                      .getOrCreate())
-
-    read(spark_session, s.TITLE_AKAS_PATH)
+    # Task 1
+    df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
+    t1.task1(df)
+    write(df)
 
 if __name__ == '__main__':
     main()
