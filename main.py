@@ -1,8 +1,13 @@
 #!
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType,StructField, StringType, IntegerType
+import pyspark.sql.types as t
 import pyspark.sql.functions as f
+
+import settings as s
+from read_write import read, write
+import task1 as t1
+
 
 def main():
 
@@ -12,18 +17,7 @@ def main():
                      .config(conf=SparkConf())
                      .getOrCreate())
 
-    schema = StructType([ \
-        StructField('tconst', StringType(), True), \
-        StructField('parentTconst', StringType(), True), \
-        StructField('seasonNumber', IntegerType(), True), \
-        StructField('episodeNumber', IntegerType(), True) \
-        ])
-    name_basics_df = spark_session.read.csv('D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.episode.tsv.gz',
-                                            schema=schema,
-                                            header=True,
-                                            nullValue='null',
-                                            sep = '\t')
-    name_basics_df.show()
+    read(spark_session, s.TITLE_AKAS_PATH)
 
 if __name__ == '__main__':
     main()

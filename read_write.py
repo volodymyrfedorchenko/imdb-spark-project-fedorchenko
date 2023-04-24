@@ -1,8 +1,8 @@
 #!
 import settings as s
-def read(spark_session, schema):
+def read(spark_session, path, schema=None):
     name_basics_df = spark_session.read.csv(
-        s.TITLE_AKAS_PATH,
+        path,
         schema=schema,
         header=True,
         nullValue='null',

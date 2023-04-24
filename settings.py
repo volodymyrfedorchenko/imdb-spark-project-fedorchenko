@@ -1,5 +1,5 @@
 #! Path_of_files_and_schemas
-import pyspark.sql.types as t
+
 
 #Path_of_files
 TITLE_AKAS_PATH = 'D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.akas.tsv.gz'
