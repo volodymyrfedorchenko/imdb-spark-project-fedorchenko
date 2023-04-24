@@ -6,6 +6,7 @@ import pyspark.sql.functions as f
 
 import settings as s
 from read_write import read, write
+#import columns as c
 import task1 as t1
 
 
@@ -18,8 +19,8 @@ def main():
                      .getOrCreate())
     # Task 1
     df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
-    t1.task1(df)
-    write(df)
+    df = t1.task1(df)
+    write(df, 'Task1')
 
 if __name__ == '__main__':
     main()
