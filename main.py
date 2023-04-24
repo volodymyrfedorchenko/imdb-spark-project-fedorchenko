@@ -18,7 +18,9 @@ def main():
         StructField('episodeNumber', IntegerType(), True) \
         ])
     name_basics_df = spark_session.read.csv('D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.episode.tsv.gz',
-                                            schema=schema)
+                                            schema=schema,
+                                            header=True,
+                                            sep = '\t')
     name_basics_df.show()
 
 if __name__ == '__main__':
