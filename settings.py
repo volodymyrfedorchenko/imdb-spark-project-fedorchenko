@@ -2,6 +2,7 @@
 import pyspark.sql.types as t
 #Path_of_files
 TITLE_AKAS_PATH = 'imdb-data/title.akas.tsv.gz'
+NAME_BASICS_PATH = 'imdb-data/name.basics.tsv.gz'
 TITLE_EPISODE_PATH = 'imdb-data/title.episode.tsv.gz'
 
 # Schemas
@@ -14,6 +15,15 @@ schema_title_akas = t.StructType([ \
         t.StructField('types', t.StringType(), True), \
         t.StructField('attributes', t.StringType(), True), \
         t.StructField('isOriginalTitle', t.BooleanType(), True) \
+        ])
+
+schema_name_basics = t.StructType([ \
+        t.StructField('nconst', t.StringType(), True), \
+        t.StructField('primaryName', t.StringType(), True), \
+        t.StructField('birthYear', t.StringType(), True), \
+        t.StructField('deathYear', t.StringType(), True), \
+        t.StructField('primaryProfession', t.StringType(), True), \
+        t.StructField('knownForTitles', t.StringType(), True) \
         ])
 
 schema_title_episode = t.StructType([ \
