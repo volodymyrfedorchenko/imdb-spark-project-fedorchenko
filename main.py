@@ -19,10 +19,21 @@ def main():
                      .config(conf=SparkConf())
                      .getOrCreate())
 
+    #Test
+    df1 = spark_session.createDataFrame(
+        [(20000101, 1, 1.0), (20000101, 2, 2.0), (20000102, 1, 3.0), (20000102, 2, 4.0)],
+        ('time', 'id', 'v'))
+    df1.write.csv('Test',
+                  header=True,
+                  mode='overwrite'
+                  )
+
     # Task 1
+    '''
     df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
     df = t1.task1(df)
     write(df, 'Task1')
+    '''
 
 
 if __name__ == '__main__':

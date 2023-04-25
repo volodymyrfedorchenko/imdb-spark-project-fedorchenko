@@ -14,7 +14,7 @@ def read(spark_session, path, schema=None):
 
 
 def write(df, directory_to_write='Temp'):
-    df.show(30, truncate=False)
+    #df.show(30, truncate=False)
     df.write.csv(directory_to_write,
                  header=True,
                  mode='overwrite'
