@@ -1,12 +1,12 @@
 #!
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-#import pyspark.sql.types as t
+import pyspark.sql.types as t
 import pyspark.sql.functions as f
 
 import settings as s
 from read_write import read, write
-#import columns as c
+import columns as c
 import task1 as t1
 
 
@@ -18,9 +18,15 @@ def main():
                      .config(conf=SparkConf())
                      .getOrCreate())
     # Task 1
-    df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
-    df = t1.task1(df)
-    write(df, 'Task1')
+    #df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
+    #df = t1.task1(df)
+    #write(df, 'Task1')
+
+    df = spark_session.range(10)
+    df.show()
+    df.write.csv('task_test',
+                 mode='overwrite')
+
 
 if __name__ == '__main__':
     main()
