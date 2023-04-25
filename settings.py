@@ -1,8 +1,8 @@
 #! Path_of_files_and_schemas
 import pyspark.sql.types as t
 #Path_of_files
-TITLE_AKAS_PATH = 'D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.akas.tsv.gz'
-TITLE_EPISODE_PATH = 'D:/Fedor/Project/imdb-spark-project-fedorchenko/imdb-data/title.episode.tsv.gz'
+TITLE_AKAS_PATH = 'imdb-data/title.akas.tsv.gz'
+TITLE_EPISODE_PATH = 'imdb-data/title.episode.tsv.gz'
 
 # Schemas
 schema_title_akas = t.StructType([ \
