@@ -18,10 +18,12 @@ def main():
                      .appName('imdb-spark-project-fedorchenko')
                      .config(conf=SparkConf())
                      .getOrCreate())
+
     # Task 1
     df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
     df = t1.task1(df)
     write(df, 'Task1')
+
 
 if __name__ == '__main__':
     main()
