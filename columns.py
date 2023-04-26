@@ -22,3 +22,9 @@ COLUMS_TITLE_BASICS = ('tconst',
                       'endYear',
                       'runtimeMinutes',
                       'genres')
+COLUMNS_TITLE_PRINCIPALS = ('tconst',
+                      'ordering',
+                      'nconst',
+                      'category',
+                      'job',
+                      'characters')

@@ -50,6 +50,25 @@ def main():
     write(df, 'Task3')
     '''
     # Task 4
+    df_principals = spark_session.read.csv(
+        s.TITLE_PRINCIPALS_PATH,
+        schema=s.schema_title_principals,
+        header=True,
+        nullValue='null',
+        sep='\t')
+    df_principals = df_principals.filter(f.col(c.COLUMNS_TITLE_PRINCIPALS[3]) == 'actor')
+
+    df_name = spark_session.read.csv(
+        s.NAME_BASICS_PATH,
+        schema=s.schema_name_basics,
+        header=True,
+        nullValue='null',
+        sep='\t')
+    df_name = df_name.select(df_name[c.COLUMS_NAME_BASICS[0]],df_name[c.COLUMS_NAME_BASICS[1]])
+
+    df_name.show(10)
+    #df_principals.show(10)
+
 
 
 if __name__ == '__main__':

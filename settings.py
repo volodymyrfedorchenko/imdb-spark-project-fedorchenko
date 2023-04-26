@@ -5,7 +5,7 @@ TITLE_AKAS_PATH = 'imdb-data/title.akas.tsv.gz'
 NAME_BASICS_PATH = 'imdb-data/name.basics.tsv.gz'
 TITLE_BASICS_PATH = 'imdb-data/title.basics.tsv.gz'
 TITLE_EPISODE_PATH = 'imdb-data/title.episode.tsv.gz'
-
+TITLE_PRINCIPALS_PATH = 'imdb-data/title.principals.tsv.gz'
 
 # Schemas
 schema_title_akas = t.StructType([ \
@@ -38,6 +38,15 @@ schema_title_basics = t.StructType([ \
         t.StructField('endYear', t.IntegerType(), True), \
         t.StructField('runtimeMinutes', t.IntegerType(), True), \
         t.StructField('genres', t.StringType(), True)
+        ])
+
+schema_title_principals = t.StructType([ \
+        t.StructField('tconst', t.StringType(), True), \
+        t.StructField('ordering', t.IntegerType(), True), \
+        t.StructField('nconst', t.StringType(), True), \
+        t.StructField('category', t.StringType(), True), \
+        t.StructField('job', t.StringType(), True), \
+        t.StructField('characters', t.StringType(), True), \
         ])
 
 schema_title_episode = t.StructType([ \
