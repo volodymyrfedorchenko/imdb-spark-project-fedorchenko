@@ -1,4 +1,5 @@
-#!
+#! Get all titles of series/movies etc. that are available in Ukrainian
+
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 import pyspark.sql.types as t

@@ -14,3 +14,11 @@ COLUMS_NAME_BASICS = ('nconst',
                       'deathYear',
                       'primaryProfession',
                       'knownForTitles')
+COLUMS_TITLE_BASICS = ('tconst',
+                      'titleType',
+                      'primaryTitle',
+                      'originalTitle',
+                      'isAdult',
+                      'endYear',
+                      'runtimeMinutes',
+                      'genres')

@@ -1,4 +1,5 @@
-#!
+#! Get the list of people’s names, who were born in the 19th century
+
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 import pyspark.sql.types as t

@@ -10,6 +10,7 @@ from read_write import read, write
 import columns as c
 import task1 as t1
 import task2 as t2
+import task3 as t3
 
 findspark.init('c:/spark')
 def main():
@@ -43,9 +44,12 @@ def main():
     write(df, 'Task2')
     '''
     # Task 3
-
-
-
+    '''
+    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+    df = t3.task3(df)
+    write(df, 'Task3')
+    '''
+    # Task 4
 
 
 if __name__ == '__main__':
