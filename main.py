@@ -37,9 +37,15 @@ def main():
     write(df, 'Task1')
     '''
     # Task 2
+    '''
     df = read(spark_session, s.NAME_BASICS_PATH, s.schema_name_basics)
     df = t2.task2(df)
     write(df, 'Task2')
+    '''
+    # Task 3
+
+
+
 
 
 if __name__ == '__main__':

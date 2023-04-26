@@ -4,6 +4,7 @@ import pyspark.sql.types as t
 TITLE_AKAS_PATH = 'imdb-data/title.akas.tsv.gz'
 NAME_BASICS_PATH = 'imdb-data/name.basics.tsv.gz'
 TITLE_EPISODE_PATH = 'imdb-data/title.episode.tsv.gz'
+TITLE_BASICS_PATH = 'imdb-data/title.basics.tsv.gz'
 
 # Schemas
 schema_title_akas = t.StructType([ \
@@ -31,4 +32,16 @@ schema_title_episode = t.StructType([ \
         t.StructField('parentTconst', t.StringType(), True), \
         t.StructField('seasonNumber', t.IntegerType(), True), \
         t.StructField('episodeNumber', t.IntegerType(), True) \
+        ])
+
+schema_title_basics = t.StructType([ \
+        t.StructField('tconst', t.StringType(), True), \
+        t.StructField('titleType', t.StringType(), True), \
+        t.StructField('primaryTitle', t.StringType(), True), \
+        t.StructField('originalTitle', t.StringType(), True), \
+        t.StructField('isAdult', t.BooleanType(), True), \
+        t.StructField('startYear', t.IntegerType(), True), \
+        t.StructField('endYear', t.IntegerType(), True), \
+        t.StructField('runtimeMinutes', t.IntegerType, True) \
+        t.StructField('genres', t.ArrayType(t.StringType()), True)
         ])
