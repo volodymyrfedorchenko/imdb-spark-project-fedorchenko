@@ -66,8 +66,17 @@ def main():
         sep='\t')
     df_name = df_name.select(df_name[c.COLUMS_NAME_BASICS[0]],df_name[c.COLUMS_NAME_BASICS[1]])
 
-    df_name.show(10)
+    df_title_basics = spark_session.read.csv(
+        s.TITLE_BASICS_PATH,
+        schema=s.schema_title_basics,
+        header=True,
+        nullValue='null',
+        sep='\t')
+    df_title_basics = df_title_basics.select(df_title_basics[c.COLUMS_TITLE_BASICS[0]], df_title_basics[c.COLUMS_TITLE_BASICS[3]])
+
+    #df_name.show(10)
     #df_principals.show(10)
+    #df_title_basics.show(10)
 
 
 
