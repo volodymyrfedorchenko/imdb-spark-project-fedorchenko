@@ -6,7 +6,8 @@ import pyspark.sql.functions as f
 
 import columns as c
 def task2(df):
-    df = df.where((df[c.COLUMS_TITLE_AKAS[3]] == 'UA')
-                            & (df[c.COLUMS_TITLE_AKAS[4]] == 'uk'))
-    return df.select(df[c.COLUMS_TITLE_AKAS[2]])
+    df = df.select(list(c.COLUMS_NAME_BASICS[1:3])) \
+        .where(df[c.COLUMS_NAME_BASICS[2]].
+               substr(0, 2) == '19')
+    return df.select(df[c.COLUMS_NAME_BASICS[1]])
 
