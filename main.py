@@ -79,8 +79,8 @@ def main():
     df_title_basics = df_title_basics.select(df_title_basics[c.COLUMS_TITLE_BASICS[0]],
                                              df_title_basics[c.COLUMS_TITLE_BASICS[3]])
 
-    #df_name.show(10)
-    #.show(10)
+    #df_name.show(2000)
+    #df_principals.show(10)
     #df_title_basics.show(10)
 
     df_principals_name = df_principals.join(df_name,
@@ -90,11 +90,14 @@ def main():
     df_principals_name_title = df_principals_name.join(df_title_basics,
                                                        str(c.COLUMNS_TITLE_PRINCIPALS[0]))
 
-    df_principals_name_title = df_principals_name_title.select(str(c.COLUMS_NAME_BASICS[1]),
-                                                         str(c.COLUMS_TITLE_BASICS[3]),
-                                                         str(c.COLUMNS_TITLE_PRINCIPALS[5]))
+    df_name_title_principals = df_principals_name_title.select(str(c.COLUMS_NAME_BASICS[1]),
+                                                               str(c.COLUMS_TITLE_BASICS[3]),
+                                                               str(c.COLUMNS_TITLE_PRINCIPALS[5]))
 
-    df_principals_name_title.show(30)
+    df_name_title_principals = df_name_title_principals.orderBy(str(c.COLUMS_NAME_BASICS[1]))
+
+
+    df_principals_name_title.show(300)
 
 
 
