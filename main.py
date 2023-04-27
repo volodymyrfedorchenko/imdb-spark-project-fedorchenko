@@ -57,6 +57,9 @@ def main():
         nullValue='null',
         sep='\t')
     df_principals = df_principals.filter(f.col(c.COLUMNS_TITLE_PRINCIPALS[3]) == 'actor')
+    df_principals = df_principals.select(df_principals[c.COLUMNS_TITLE_PRINCIPALS[0]],
+                                         df_principals[c.COLUMNS_TITLE_PRINCIPALS[2]],
+                                         df_principals[c.COLUMNS_TITLE_PRINCIPALS[5]],)
 
     df_name = spark_session.read.csv(
         s.NAME_BASICS_PATH,
@@ -64,7 +67,8 @@ def main():
         header=True,
         nullValue='null',
         sep='\t')
-    df_name = df_name.select(df_name[c.COLUMS_NAME_BASICS[0]],df_name[c.COLUMS_NAME_BASICS[1]])
+    df_name = df_name.select(df_name[c.COLUMS_NAME_BASICS[0]],
+                             df_name[c.COLUMS_NAME_BASICS[1]])
 
     df_title_basics = spark_session.read.csv(
         s.TITLE_BASICS_PATH,
@@ -72,11 +76,14 @@ def main():
         header=True,
         nullValue='null',
         sep='\t')
-    df_title_basics = df_title_basics.select(df_title_basics[c.COLUMS_TITLE_BASICS[0]], df_title_basics[c.COLUMS_TITLE_BASICS[3]])
+    df_title_basics = df_title_basics.select(df_title_basics[c.COLUMS_TITLE_BASICS[0]],
+                                             df_title_basics[c.COLUMS_TITLE_BASICS[3]])
 
-    #df_name.show(10)
-    #df_principals.show(10)
-    #df_title_basics.show(10)
+    df_name.show(10)
+    df_principals.show(10)
+    df_title_basics.show(10)
+
+    df_principals_name = df_principals.join(df_name, 'nconst')
 
 
 
