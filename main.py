@@ -83,7 +83,9 @@ def main():
     df_principals.show(10)
     df_title_basics.show(10)
 
-    df_principals_name = df_principals.join(df_name, 'nconst')
+    df_principals_name = df_principals.join(df_name,
+                                            str(c.COLUMNS_TITLE_PRINCIPALS[2]))
+    df_principals_name.show(10)
 
 
 
