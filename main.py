@@ -106,15 +106,21 @@ def main():
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
     df_title_ratings = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
 
-    df_title_akas_id_region = df_title_akas.select(df_title_akas[c.COLUMS_TITLE_AKAS[0]],
+    df_title_akas_id_region = df_title_akas.filter(f.col(c.COLUMS_TITLE_AKAS[3]) != r'\N').\
+                                            select(df_title_akas[c.COLUMS_TITLE_AKAS[0]],
                                                    df_title_akas[c.COLUMS_TITLE_AKAS[3]])
+
     df_title_basics_id_origtitle_adult = df_title_basics.select(df_title_basics[c.COLUMS_TITLE_BASICS[0]],
                                                                 df_title_basics[c.COLUMS_TITLE_BASICS[3]],
                                                                 df_title_basics[c.COLUMS_TITLE_BASICS[4]])
+
     df_title_ratings_id_rating = df_title_ratings.select(df_title_ratings[c.COLUMNS_TITLE_RATINGS[0]],
                                                                 df_title_ratings[c.COLUMNS_TITLE_RATINGS[1]])
+
     df_title_basics_id_origtitle_adult_filter = df_title_basics_id_origtitle_adult.filter(f.col(c.COLUMS_TITLE_BASICS[4]) == 1)
+
     df_title_basics_id_origtitle_filter = df_title_basics_id_origtitle_adult.drop(f.col(c.COLUMS_TITLE_BASICS[4]))
+
     df_title_akas_id_region_origtitle_filter = df_title_akas_id_region.join(df_title_basics_id_origtitle_filter,
                                                                             df_title_akas_id_region[c.COLUMS_TITLE_AKAS[0]]
                                                                             == df_title_basics_id_origtitle_filter[c.COLUMS_TITLE_BASICS[0]])
