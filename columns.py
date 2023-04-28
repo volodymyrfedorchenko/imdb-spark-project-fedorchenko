@@ -28,3 +28,6 @@ COLUMNS_TITLE_PRINCIPALS = ('tconst',
                       'category',
                       'job',
                       'characters')
+COLUMNS_TITLE_RATINGS = ('tconst',
+                      'averageRating',
+                      'numVotes',)
