@@ -91,10 +91,9 @@ def main():
     write(df, 'Task3')
     '''
     # Task 4
+
     df_principals = read(spark_session, s.TITLE_PRINCIPALS_PATH, s.schema_title_principals)
-
     df_name = read(spark_session, s.NAME_BASICS_PATH, s.schema_name_basics)
-
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
     df = t4.task4(df_principals, df_name, df_title_basics)
