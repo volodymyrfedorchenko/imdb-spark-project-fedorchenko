@@ -11,6 +11,7 @@ import columns as c
 import task1 as t1
 import task2 as t2
 import task3 as t3
+import task4 as t4
 
 findspark.init('c:/spark')
 def main():
@@ -23,33 +24,6 @@ def main():
 
     #Test
     '''
-    df1 = spark_session.createDataFrame(
-        [(20000101, 1, 1.0), (20000101, 2, 2.0), (20000102, 1, 3.0), (20000102, 2, 4.0)],
-        ('time', 'id', 'v'))
-    df1.write.csv('Test',
-                  header=True,
-                  mode='overwrite'
-                  )
-    '''
-    # Task 1
-    '''
-    df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
-    df = t1.task1(df)
-    write(df, 'Task1')
-    '''
-    # Task 2
-    '''
-    df = read(spark_session, s.NAME_BASICS_PATH, s.schema_name_basics)
-    df = t2.task2(df)
-    write(df, 'Task2')
-    '''
-    # Task 3
-    '''
-    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
-    df = t3.task3(df)
-    write(df, 'Task3')
-    '''
-    # Task 4
     df_principals = spark_session.read.csv(
         s.TITLE_PRINCIPALS_PATH,
         schema=s.schema_title_principals,
@@ -60,7 +34,7 @@ def main():
     df_principals = df_principals.select(df_principals[c.COLUMNS_TITLE_PRINCIPALS[0]],
                                          df_principals[c.COLUMNS_TITLE_PRINCIPALS[2]],
                                          df_principals[c.COLUMNS_TITLE_PRINCIPALS[5]],)
-
+    
     df_name = spark_session.read.csv(
         s.NAME_BASICS_PATH,
         schema=s.schema_name_basics,
@@ -69,7 +43,7 @@ def main():
         sep='\t')
     df_name = df_name.select(df_name[c.COLUMS_NAME_BASICS[0]],
                              df_name[c.COLUMS_NAME_BASICS[1]])
-
+    
     df_title_basics = spark_session.read.csv(
         s.TITLE_BASICS_PATH,
         schema=s.schema_title_basics,
@@ -96,10 +70,35 @@ def main():
 
     df_name_title_principals = df_name_title_principals.orderBy(str(c.COLUMS_NAME_BASICS[1]))
 
+    df_name_title_principals.show(300)
+    '''
+    # Task 1
+    '''
+    df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
+    df = t1.task1(df)
+    write(df, 'Task1')
+    '''
+    # Task 2
+    '''
+    df = read(spark_session, s.NAME_BASICS_PATH, s.schema_name_basics)
+    df = t2.task2(df)
+    write(df, 'Task2')
+    '''
+    # Task 3
+    '''
+    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+    df = t3.task3(df)
+    write(df, 'Task3')
+    '''
+    # Task 4
+    df_principals = read(spark_session, s.TITLE_PRINCIPALS_PATH, s.schema_title_principals)
 
-    df_principals_name_title.show(300)
+    df_name = read(spark_session, s.NAME_BASICS_PATH, s.schema_name_basics)
 
+    df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
+    df = t4.task4(df_principals, df_name, df_title_basics)
+    write(df, 'Task4')
 
 if __name__ == '__main__':
     main()
