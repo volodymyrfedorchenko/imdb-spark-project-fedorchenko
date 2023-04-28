@@ -125,7 +125,13 @@ def main():
                                                                             df_title_akas_id_region[c.COLUMS_TITLE_AKAS[0]]
                                                                             == df_title_basics_id_origtitle_filter[c.COLUMS_TITLE_BASICS[0]])
 
-    df_title_akas_id_region_origtitle_filter.show(truncate=False)
+    df_tconst_region_originalTitle = df_title_akas_id_region_origtitle_filter.select(str(c.COLUMS_TITLE_BASICS[0]),
+                                                                                     str(c.COLUMS_TITLE_AKAS[3]),
+                                                                                     str(c.COLUMS_TITLE_BASICS[3]))
+    # 5_1
+    df_tconst_region_originalTitle.groupBy(str(c.COLUMS_TITLE_AKAS[3])).count().show(truncate=False)
+
+    #df_tconst_region_originalTitle.show(truncate=False)
 
 if __name__ == '__main__':
     main()
