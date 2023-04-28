@@ -115,9 +115,11 @@ def main():
                                                                 df_title_ratings[c.COLUMNS_TITLE_RATINGS[1]])
     df_title_basics_id_origtitle_adult_filter = df_title_basics_id_origtitle_adult.filter(f.col(c.COLUMS_TITLE_BASICS[4]) == 1)
     df_title_basics_id_origtitle_filter = df_title_basics_id_origtitle_adult.drop(f.col(c.COLUMS_TITLE_BASICS[4]))
-    #df_title_akas_df_title_akas = df_title_akas_id_region.join()
+    df_title_akas_id_region_origtitle_filter = df_title_akas_id_region.join(df_title_basics_id_origtitle_filter,
+                                                                            df_title_akas_id_region[c.COLUMS_TITLE_AKAS[0]]
+                                                                            == df_title_basics_id_origtitle_filter[c.COLUMS_TITLE_BASICS[0]])
 
-    df_title_basics_id_origtitle_filter.show(truncate=False)
+    df_title_akas_id_region_origtitle_filter.show(truncate=False)
 
 if __name__ == '__main__':
     main()
