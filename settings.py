@@ -34,7 +34,7 @@ schema_title_basics = t.StructType([ \
         t.StructField('titleType', t.StringType(), True), \
         t.StructField('primaryTitle', t.StringType(), True), \
         t.StructField('originalTitle', t.StringType(), True), \
-        t.StructField('isAdult', t.BooleanType(), True), \
+        t.StructField('isAdult', t.IntegerType(), True), \
         t.StructField('startYear', t.IntegerType(), True), \
         t.StructField('endYear', t.IntegerType(), True), \
         t.StructField('runtimeMinutes', t.IntegerType(), True), \
