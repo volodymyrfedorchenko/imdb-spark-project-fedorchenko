@@ -77,7 +77,7 @@ def main():
     
     #T5
     
-    df_title_akas_id_region = df_title_akas.filter(f.col(c.COLUMS_TITLE_AKAS[3]) != r'\N').\
+    df_title_akas_id_region = df_title_akas.filter(f.col(c.COLUMS_TITLE_AKAS[3]) != 'SEEEEEE TASK5').\
                                             select(df_title_akas[c.COLUMS_TITLE_AKAS[0]],
                                                    df_title_akas[c.COLUMS_TITLE_AKAS[3]])
 
@@ -123,6 +123,7 @@ def main():
                                          select('region', 'count', 'originalTitle', 'averageRating')
 
     df_tconst_region_originalTitle_count_rating.show(truncate=False)
+    
     '''
     # Task 1
     '''
@@ -149,8 +150,7 @@ def main():
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
     df = t4.task4(df_principals, df_name, df_title_basics)
-    write(df, 'Task4')
-    
+    write(df, 'Task4')    
     '''
     # Task 5
 
