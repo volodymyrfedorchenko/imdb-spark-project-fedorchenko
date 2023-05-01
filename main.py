@@ -13,6 +13,7 @@ import task2 as t2
 import task3 as t3
 import task4 as t4
 import task5 as t5
+import task6 as t6
 
 findspark.init('c:/spark')
 def main():
@@ -124,6 +125,44 @@ def main():
 
     df_tconst_region_originalTitle_count_rating.show(truncate=False)
     
+    #T6
+    df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+    df_title_basics_tvSeries = df_title_basics.filter(f.col(c.COLUMS_TITLE_BASICS[1]) == 'tvSeries')
+    df_title_basics_tvSeries_id_titleType_originalTitle = df_title_basics_tvSeries.select(
+                                                                df_title_basics[c.COLUMS_TITLE_BASICS[0]],
+                                                                df_title_basics[c.COLUMS_TITLE_BASICS[1]],
+                                                                df_title_basics[c.COLUMS_TITLE_BASICS[3]])
+    #df_title_basics_tvSeries_id_titleType_originalTitle.show()
+
+    df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings). \
+                                                                           drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
+    #df_title_ratings_id_averageRating.show()
+
+    df_title_episode = read(spark_session, s.TITLE_EPISODE_PATH, s.schema_title_episode)
+    df_title_episode = df_title_episode.select(df_title_episode[c.COLUMNS_TITLE_EPISODE[0]],
+                                               df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]                                                                )
+    #df_title_episode.show(5)
+
+    df_title_basics_tvSeries_id_titleType_originalTitle_averageRating = \
+        df_title_basics_tvSeries_id_titleType_originalTitle.join(df_title_ratings_id_averageRating,
+                                                                 str(c.COLUMS_TITLE_BASICS[0]))
+    #df_title_basics_tvSeries_id_titleType_originalTitle_averageRating.show(5)
+
+    df_title_basics_tvSeries_episode = \
+        df_title_episode.join(df_title_basics_tvSeries_id_titleType_originalTitle_averageRating,
+                                                             df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]
+                                                             == df_title_basics_tvSeries_id_titleType_originalTitle_averageRating \
+                                                                                                        [c.COLUMS_TITLE_BASICS[0]])
+    #df_title_basics_tvSeries_episode.show()
+
+    df_episode_agg = df_title_basics_tvSeries_episode.groupBy(str(c.COLUMS_TITLE_BASICS[3])).\
+                                                      agg({str(c.COLUMS_TITLE_BASICS[3]): 'count',
+                                                           str(c.COLUMNS_TITLE_RATINGS[1]): 'max'}).\
+                                                      orderBy([f"max({str(c.COLUMNS_TITLE_RATINGS[1])})",
+                                                               f"count({str(c.COLUMS_TITLE_BASICS[3])})"],
+                                                              ascending=[False, False]).\
+                                                      show()
+    
     '''
     # Task 1
     '''
@@ -164,44 +203,13 @@ def main():
     # Task 6
 
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
-    df_title_basics_tvSeries = df_title_basics.filter(f.col(c.COLUMS_TITLE_BASICS[1]) == 'tvSeries')
-    df_title_basics_tvSeries_id_titleType_originalTitle = df_title_basics_tvSeries.select(
-                                                                df_title_basics[c.COLUMS_TITLE_BASICS[0]],
-                                                                df_title_basics[c.COLUMS_TITLE_BASICS[1]],
-                                                                df_title_basics[c.COLUMS_TITLE_BASICS[3]])
-    #df_title_basics_tvSeries_id_titleType_originalTitle.show()
 
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings). \
                                                                            drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
-    #df_title_ratings_id_averageRating.show()
-
     df_title_episode = read(spark_session, s.TITLE_EPISODE_PATH, s.schema_title_episode)
-    df_title_episode = df_title_episode.select(df_title_episode[c.COLUMNS_TITLE_EPISODE[0]],
-                                               df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]                                                                )
-    #df_title_episode.show(5)
 
-    df_title_basics_tvSeries_id_titleType_originalTitle_averageRating = \
-        df_title_basics_tvSeries_id_titleType_originalTitle.join(df_title_ratings_id_averageRating,
-                                                                 str(c.COLUMS_TITLE_BASICS[0]))
-    #df_title_basics_tvSeries_id_titleType_originalTitle_averageRating.show(5)
-
-    df_title_basics_tvSeries_episode = \
-        df_title_episode.join(df_title_basics_tvSeries_id_titleType_originalTitle_averageRating,
-                                                             df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]
-                                                             == df_title_basics_tvSeries_id_titleType_originalTitle_averageRating \
-                                                                                                        [c.COLUMS_TITLE_BASICS[0]])
-    #df_title_basics_tvSeries_episode.show()
-
-    df_episode_agg = df_title_basics_tvSeries_episode.groupBy(str(c.COLUMS_TITLE_BASICS[3])).\
-                                                      agg({str(c.COLUMS_TITLE_BASICS[3]): 'count',
-                                                           str(c.COLUMNS_TITLE_RATINGS[1]): 'max'}).\
-                                                      orderBy([f"max({str(c.COLUMNS_TITLE_RATINGS[1])})",
-                                                               f"count({str(c.COLUMS_TITLE_BASICS[3])})"],
-                                                              ascending=[False, False]).\
-                                                      show()
-
-
-
+    df = t6.task6(df_title_basics, df_title_ratings_id_averageRating, df_title_episode)
+    write_limit(df, 'Task6', 50)
 
 if __name__ == '__main__':
     main()
