@@ -8,6 +8,7 @@ TITLE_EPISODE_PATH = 'imdb-data/title.episode.tsv.gz'
 TITLE_PRINCIPALS_PATH = 'imdb-data/title.principals.tsv.gz'
 TITLE_RATINGS_PATH = 'imdb-data/title.ratings.tsv.gz'
 
+
 # Schemas
 schema_title_akas = t.StructType([ \
         t.StructField('titleId', t.StringType(), True), \
@@ -63,10 +64,5 @@ schema_title_ratings = t.StructType([ \
         t.StructField('numVotes', t.IntegerType(), True), \
         ])
 
-schema_title_episode = t.StructType([ \
-        t.StructField('tconst', t.StringType(), True), \
-        t.StructField('parentTconst', t.StringType(), True), \
-        t.StructField('seasonNumber', t.IntegerType(), True), \
-        t.StructField('episodeNumber', t.IntegerType(), True), \
-        ])
+
 
