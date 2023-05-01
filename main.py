@@ -190,7 +190,15 @@ def main():
                                                              df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]
                                                              == df_title_basics_tvSeries_id_titleType_originalTitle_averageRating \
                                                                                                         [c.COLUMS_TITLE_BASICS[0]])
-    df_title_basics_tvSeries_episode.show()
+    #df_title_basics_tvSeries_episode.show()
+
+    df_episode_agg = df_title_basics_tvSeries_episode.groupBy(str(c.COLUMS_TITLE_BASICS[3])).\
+                                                      agg({str(c.COLUMS_TITLE_BASICS[3]): 'count',
+                                                           str(c.COLUMNS_TITLE_RATINGS[1]): 'max'}).\
+                                                      orderBy([f"max({str(c.COLUMNS_TITLE_RATINGS[1])})",
+                                                               f"count({str(c.COLUMS_TITLE_BASICS[3])})"],
+                                                              ascending=[False, False]).\
+                                                      show()
 
 
 
