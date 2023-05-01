@@ -23,7 +23,7 @@ def task5(df_title_akas, df_title_basics, df_title_ratings):
     df_title_basics_id_origtitle_adult_filter = df_title_basics_id_origtitle_adult.\
                                                                            filter(f.col(c.COLUMS_TITLE_BASICS[4]) == 1)
 
-    df_title_basics_id_origtitle_filter = df_title_basics_id_origtitle_adult.drop(f.col(c.COLUMS_TITLE_BASICS[4]))
+    df_title_basics_id_origtitle_filter = df_title_basics_id_origtitle_adult_filter.drop(f.col(c.COLUMS_TITLE_BASICS[4]))
 
     df_title_akas_id_region_origtitle_filter = df_title_akas_id_region.\
                                                                        join(df_title_basics_id_origtitle_filter,

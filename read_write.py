@@ -21,3 +21,12 @@ def write(df, directory_to_write='Temp'):
                  mode='overwrite'
                  )
     '''
+
+def write_limit(df, directory_to_write='Temp', kol = '10'):
+    df.show(30, truncate=False)
+    '''
+    df.write.option("maxRecordsPerFile", kol).csv(directory_to_write,
+                                                  header=True,
+                                                  mode='overwrite'
+                                                  )
+    '''
