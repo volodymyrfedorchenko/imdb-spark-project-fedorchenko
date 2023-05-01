@@ -178,12 +178,19 @@ def main():
     df_title_episode = read(spark_session, s.TITLE_EPISODE_PATH, s.schema_title_episode)
     df_title_episode = df_title_episode.select(df_title_episode[c.COLUMNS_TITLE_EPISODE[0]],
                                                df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]                                                                )
-    df_title_episode.show()
+    #df_title_episode.show(5)
 
     df_title_basics_tvSeries_id_titleType_originalTitle_averageRating = \
         df_title_basics_tvSeries_id_titleType_originalTitle.join(df_title_ratings_id_averageRating,
                                                                  str(c.COLUMS_TITLE_BASICS[0]))
-    df_title_basics_tvSeries_id_titleType_originalTitle_averageRating.show()
+    #df_title_basics_tvSeries_id_titleType_originalTitle_averageRating.show(5)
+
+    df_title_basics_tvSeries_episode = \
+        df_title_episode.join(df_title_basics_tvSeries_id_titleType_originalTitle_averageRating,
+                                                             df_title_episode[c.COLUMNS_TITLE_EPISODE[1]]
+                                                             == df_title_basics_tvSeries_id_titleType_originalTitle_averageRating \
+                                                                                                        [c.COLUMS_TITLE_BASICS[0]])
+    df_title_basics_tvSeries_episode.show()
 
 
 
