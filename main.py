@@ -163,6 +163,18 @@ def main():
     '''
     # Task 6
 
+    df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+    df_title_basics_tvSeries = df_title_basics.filter(f.col(c.COLUMS_TITLE_BASICS[1]) == 'tvSeries')
+    df_title_basics_tvSeries_id_titleType_originalTitle = df_title_basics_tvSeries.select(
+                                                                df_title_basics[c.COLUMS_TITLE_BASICS[0]],
+                                                                df_title_basics[c.COLUMS_TITLE_BASICS[1]],
+                                                                df_title_basics[c.COLUMS_TITLE_BASICS[3]])
+    #df_title_basics_tvSeries_id_titleType_originalTitle.show()
+
+    df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings). \
+                                                                           drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
+    df_title_ratings_id_averageRating.show()
+
 if __name__ == '__main__':
     main()
 

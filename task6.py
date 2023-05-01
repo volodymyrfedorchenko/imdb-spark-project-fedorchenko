@@ -8,3 +8,5 @@ import pyspark.sql.functions as f
 
 import columns as c
 
+def task6(df_title_akas, df_title_basics, df_title_ratings):
+    pass

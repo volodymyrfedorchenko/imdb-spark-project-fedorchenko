@@ -31,3 +31,7 @@ COLUMNS_TITLE_PRINCIPALS = ('tconst',
 COLUMNS_TITLE_RATINGS = ('tconst',
                       'averageRating',
                       'numVotes',)
+COLUMNS_TITLE_EPISODE = ('tconst',
+                      'parentTconst',
+                      'seasonNumber',
+                      'episodeNumber')
