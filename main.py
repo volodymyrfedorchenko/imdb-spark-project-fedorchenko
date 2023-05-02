@@ -213,7 +213,9 @@ def main():
     # Task 7
 
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
+    df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
     df_title_ratings_id_averageRating = df_title_ratings_id_averageRating.drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
+    df_title_basics.show()
 
 if __name__ == '__main__':
     main()
