@@ -196,14 +196,14 @@ def main():
     write(df, 'Task4')    
     '''
     # Task 5
-
+    '''
     df_title_akas = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
     df_title_ratings = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
 
     df = t5.task5(df_title_akas, df_title_basics, df_title_ratings)
-    #write(df, 'Task5')
-
+    write(df, 'Task5')
+    '''
     # Task 6
     '''
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
