@@ -19,6 +19,7 @@ COLUMS_TITLE_BASICS = ('tconst',
                       'primaryTitle',
                       'originalTitle',
                       'isAdult',
+                      'startYear',
                       'endYear',
                       'runtimeMinutes',
                       'genres')

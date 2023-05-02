@@ -214,8 +214,15 @@ def main():
 
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
-    df_title_ratings_id_averageRating = df_title_ratings_id_averageRating.drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
-    df_title_basics.show()
+
+
+    df_title_id_averageRating = df_title_ratings_id_averageRating.drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
+    df_title_id_titleType_originalTitle_startYear = df_title_basics.select(df_title_basics[c.COLUMS_TITLE_BASICS[0]],
+                                                                 df_title_basics[c.COLUMS_TITLE_BASICS[1]],
+                                                                 df_title_basics[c.COLUMS_TITLE_BASICS[3]],
+                                                                 df_title_basics[c.COLUMS_TITLE_BASICS[5]])
+
+    df_title_id_titleType_originalTitle_startYear.show()
 
 if __name__ == '__main__':
     main()

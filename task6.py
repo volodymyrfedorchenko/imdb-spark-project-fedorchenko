@@ -13,9 +13,9 @@ def task6(df_title_basics, df_title_ratings_id_averageRating, df_title_episode):
     df_title_ratings_id_averageRating = df_title_ratings_id_averageRating.drop(f.col(c.COLUMNS_TITLE_RATINGS[2]))
     df_title_basics_tvSeries = df_title_basics.filter(f.col(c.COLUMS_TITLE_BASICS[1]) == 'tvSeries')
     df_title_basics_tvSeries_id_titleType_originalTitle = df_title_basics_tvSeries.select(
-        df_title_basics[c.COLUMS_TITLE_BASICS[0]],
-        df_title_basics[c.COLUMS_TITLE_BASICS[1]],
-        df_title_basics[c.COLUMS_TITLE_BASICS[3]])
+                                                                           df_title_basics[c.COLUMS_TITLE_BASICS[0]],
+                                                                           df_title_basics[c.COLUMS_TITLE_BASICS[1]],
+                                                                           df_title_basics[c.COLUMS_TITLE_BASICS[3]])
 
     df_title_episode = df_title_episode.select(df_title_episode[c.COLUMNS_TITLE_EPISODE[0]],
                                                df_title_episode[c.COLUMNS_TITLE_EPISODE[1]])
