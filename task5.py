@@ -38,11 +38,11 @@ def task5(df_title_akas, df_title_basics, df_title_ratings):
 
     df_tconst_region_originalTitle_count = df_tconst_region_originalTitle.join(df_region_count,
                                                                                str(c.COLUMS_TITLE_AKAS[3]))
-
     df_tconst_region_originalTitle_count_rating = df_tconst_region_originalTitle_count.join(df_title_ratings_id_rating,
                                                                                         str(c.COLUMS_TITLE_BASICS[0]))
-
-    window = Window.partitionBy('region').orderBy(['count', 'region', 'averageRating'])
+    df_tconst_region_originalTitle_count_rating = df_tconst_region_originalTitle_count_rating.withColumn(
+                                                             'antiRating', 10-f.col('averageRating'))
+    window = Window.partitionBy('region').orderBy('antiRating')
 
     df_tconst_region_originalTitle_count_rating = df_tconst_region_originalTitle_count_rating.\
                                                                    withColumn('row_number', f.row_number().over(window))

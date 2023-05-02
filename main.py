@@ -196,14 +196,14 @@ def main():
     write(df, 'Task4')    
     '''
     # Task 5
-    '''
+
     df_title_akas = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
     df_title_ratings = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
 
     df = t5.task5(df_title_akas, df_title_basics, df_title_ratings)
-    write(df, 'Task5')
-    '''
+    #write(df, 'Task5')
+
     # Task 6
     '''
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
@@ -214,7 +214,7 @@ def main():
     write_limit(df, 'Task6', 50)
     '''
     # Task 7
-
+    '''
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
@@ -232,11 +232,14 @@ def main():
                                              (f.col(str(c.COLUMS_TITLE_BASICS[5])).cast('string')).substr(startPos = 0, length = 3),
                                              f.lit('0'),f.lit('9')))
 
-    #df_title_id_titleType_originalTitle_startYear_rating_decade = \
-        #df_title_id_titleType_originalTitle_startYear_rating_decade
+    window = Window.partitionBy('decade').orderBy(['decade', 'averageRating'])
 
-    df_title_id_titleType_originalTitle_startYear_rating_decade.show()
+    df_title_id_titleType_originalTitle_startYear_rating_decade = \
+        df_title_id_titleType_originalTitle_startYear_rating_decade.withColumn('row_number',
+                                                                               f.row_number().over(window))
 
+    df_title_id_titleType_originalTitle_startYear_rating_decade.show(100)
+    '''
 if __name__ == '__main__':
     main()
 
