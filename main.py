@@ -214,7 +214,7 @@ def main():
     write_limit(df, 'Task6', 50)
     '''
     # Task 7
-    '''
+
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
@@ -232,14 +232,26 @@ def main():
                                              (f.col(str(c.COLUMS_TITLE_BASICS[5])).cast('string')).substr(startPos = 0, length = 3),
                                              f.lit('0'),f.lit('9')))
 
-    window = Window.partitionBy('decade').orderBy(['decade', 'averageRating'])
+    df_id_titleType_originalTitle_startYear_rating_arating_decade = \
+        df_title_id_titleType_originalTitle_startYear_rating_decade.withColumn('antiRating', 10-f.col('averageRating'))
 
-    df_title_id_titleType_originalTitle_startYear_rating_decade = \
-        df_title_id_titleType_originalTitle_startYear_rating_decade.withColumn('row_number',
-                                                                               f.row_number().over(window))
+    window = Window.partitionBy('decade').orderBy('antiRating')
 
-    df_title_id_titleType_originalTitle_startYear_rating_decade.show(100)
-    '''
+    df_id_titleType_originalTitle_startYear_rating_arating_decade = \
+                    df_id_titleType_originalTitle_startYear_rating_arating_decade.withColumn('row_number',
+                                                                                            f.row_number().over(window))
+    df_id_titleType_originalTitle_startYear_rating_arating_decade = \
+        df_id_titleType_originalTitle_startYear_rating_arating_decade.filter(
+                                    df_id_titleType_originalTitle_startYear_rating_arating_decade.row_number < 11).\
+                                    orderBy(['decade', 'averageRating'], ascending=[False, False])
+
+    df_id_titleType_originalTitle_startYear_rating_arating_decade = \
+        df_id_titleType_originalTitle_startYear_rating_arating_decade.filter(
+            df_id_titleType_originalTitle_startYear_rating_arating_decade.startYear.cast('string') != r'\N').\
+                  select('decade', 'originalTitle', 'titleType', 'averageRating')
+
+    df_id_titleType_originalTitle_startYear_rating_arating_decade.show(100)
+
 if __name__ == '__main__':
     main()
 
