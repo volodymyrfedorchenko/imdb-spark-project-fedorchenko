@@ -229,8 +229,11 @@ def main():
                                                                             str(c.COLUMS_TITLE_BASICS[0]))
     df_title_id_titleType_originalTitle_startYear_rating_decade = df_title_id_titleType_originalTitle_startYear_rating.\
                                  withColumn('decade', f.format_string('%s%s - %s',
-                                             (f.col('startYear').cast('string')).substr(startPos = 0, length = 3),
+                                             (f.col(str(c.COLUMS_TITLE_BASICS[5])).cast('string')).substr(startPos = 0, length = 3),
                                              f.lit('0'),f.lit('9')))
+
+    #df_title_id_titleType_originalTitle_startYear_rating_decade = \
+        #df_title_id_titleType_originalTitle_startYear_rating_decade
 
     df_title_id_titleType_originalTitle_startYear_rating_decade.show()
 

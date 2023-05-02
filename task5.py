@@ -8,7 +8,7 @@ import pyspark.sql.functions as f
 
 import columns as c
 def task5(df_title_akas, df_title_basics, df_title_ratings):
-
+    # 5_0
     df_title_akas_id_region = df_title_akas.filter(f.col(c.COLUMS_TITLE_AKAS[3]) != r'\N').\
         select(df_title_akas[c.COLUMS_TITLE_AKAS[0]],
                df_title_akas[c.COLUMS_TITLE_AKAS[3]])
