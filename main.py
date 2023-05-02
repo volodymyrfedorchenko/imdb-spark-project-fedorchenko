@@ -178,11 +178,11 @@ def main():
     write(df, 'Task2')
     '''
     # Task 3
-    '''
-    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+
+    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics).show()
     df = t3.task3(df)
     write(df, 'Task3')
-    '''
+
     # Task 4
     '''
     df_principals = read(spark_session, s.TITLE_PRINCIPALS_PATH, s.schema_title_principals)
@@ -211,7 +211,7 @@ def main():
     write_limit(df, 'Task6', 50)
     '''
     # Task 7
-
+    '''
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
@@ -223,7 +223,7 @@ def main():
                                                                  df_title_basics[c.COLUMS_TITLE_BASICS[5]])
 
     df_title_id_titleType_originalTitle_startYear.show()
-
+    '''
 if __name__ == '__main__':
     main()
 
