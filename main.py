@@ -178,11 +178,11 @@ def main():
     write(df, 'Task2')
     '''
     # Task 3
-
-    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics).show()
+    '''
+    df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
     df = t3.task3(df)
     write(df, 'Task3')
-
+    '''
     # Task 4
     '''
     df_principals = read(spark_session, s.TITLE_PRINCIPALS_PATH, s.schema_title_principals)
