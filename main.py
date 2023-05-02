@@ -168,18 +168,21 @@ def main():
     # Task 1
     '''
     df = read(spark_session, s.TITLE_AKAS_PATH, s.schema_title_akas)
+    
     df = t1.task1(df)
     write(df, 'Task1')
     '''
     # Task 2
     '''
     df = read(spark_session, s.NAME_BASICS_PATH, s.schema_name_basics)
+    
     df = t2.task2(df)
     write(df, 'Task2')
     '''
     # Task 3
     '''
     df = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+    
     df = t3.task3(df)
     write(df, 'Task3')
     '''
@@ -211,7 +214,7 @@ def main():
     write_limit(df, 'Task6', 50)
     '''
     # Task 7
-    '''
+
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
@@ -221,9 +224,16 @@ def main():
                                                                  df_title_basics[c.COLUMS_TITLE_BASICS[1]],
                                                                  df_title_basics[c.COLUMS_TITLE_BASICS[3]],
                                                                  df_title_basics[c.COLUMS_TITLE_BASICS[5]])
+    df_title_id_titleType_originalTitle_startYear_rating = df_title_id_titleType_originalTitle_startYear.\
+                                                                        join(df_title_id_averageRating,
+                                                                            str(c.COLUMS_TITLE_BASICS[0]))
+    df_title_id_titleType_originalTitle_startYear_rating_decade = df_title_id_titleType_originalTitle_startYear_rating.\
+                                 withColumn('decade', f.format_string('%s%s - %s',
+                                             (f.col('startYear').cast('string')).substr(startPos = 0, length = 3),
+                                             f.lit('0'),f.lit('9')))
 
-    df_title_id_titleType_originalTitle_startYear.show()
-    '''
+    df_title_id_titleType_originalTitle_startYear_rating_decade.show()
+
 if __name__ == '__main__':
     main()
 
