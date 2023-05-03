@@ -15,6 +15,7 @@ import task4 as t4
 import task5 as t5
 import task6 as t6
 import task7 as t7
+import task8 as t8
 
 findspark.init('c:/spark')
 def main():
@@ -214,12 +215,20 @@ def main():
     write_limit(df, 'Task6', 50)
     '''
     # Task 7
-
+    '''
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
     df = t7.task7(df_title_ratings_id_averageRating, df_title_basics)
     write(df, 'Task7')
+    '''
+    # Task 8
+
+    df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
+    df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
+
+    df = t8.task8(df_title_ratings_id_averageRating, df_title_basics)
+    #write(df, 'Task7')
 
 if __name__ == '__main__':
     main()
