@@ -25,5 +25,22 @@ def task8(df_title_ratings_id_averageRating, df_title_basics):
                                                                                                'originalTitle',
                                                                                                'averageRating',
                                                                                       f.explode('genres').alias('genr'))
+    df_title_titleType_originalTitle_genres_rating_arating = \
+        df_title_titleType_originalTitle_genres_rating.withColumn('antiRating', 10 - f.col('averageRating'))
 
-    df_title_titleType_originalTitle_genres_rating.show(30, truncate=False)
+    window = Window.partitionBy('genr').orderBy('antiRating')
+
+    df_title_titleType_originalTitle_genres_rating_arating = \
+        df_title_titleType_originalTitle_genres_rating_arating.withColumn('row_number', f.row_number().over(window))
+
+    df_title_titleType_originalTitle_genres_rating_arating = \
+        df_title_titleType_originalTitle_genres_rating_arating.filter(
+                                    df_title_titleType_originalTitle_genres_rating_arating.row_number < 11).\
+                                    orderBy(['genr', 'averageRating'], ascending=[False, False])
+
+    df_title_titleType_originalTitle_genres_rating_arating = \
+                        df_title_titleType_originalTitle_genres_rating_arating.filter(
+                                                df_title_titleType_originalTitle_genres_rating_arating.genr != r'\N'). \
+                                                select('genr', 'originalTitle', 'titleType', 'averageRating')
+
+    df_title_titleType_originalTitle_genres_rating_arating.show(30, truncate=False)
