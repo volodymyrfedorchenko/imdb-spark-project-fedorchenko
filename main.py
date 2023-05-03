@@ -227,6 +227,8 @@ def main():
     df_title_ratings_id_averageRating = read(spark_session, s.TITLE_RATINGS_PATH, s.schema_title_ratings)
     df_title_basics = read(spark_session, s.TITLE_BASICS_PATH, s.schema_title_basics)
 
+    #df_title_basics = df_title_basics.withColumn("genres", f.split('genres',','))
+    #df_title_basics.show(30)
     df = t8.task8(df_title_ratings_id_averageRating, df_title_basics)
     #write(df, 'Task7')
 
