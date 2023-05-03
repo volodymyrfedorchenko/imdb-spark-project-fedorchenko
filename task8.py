@@ -17,4 +17,4 @@ def task8(df_title_ratings_id_averageRating, df_title_basics):
     df_title_id_titleType_originalTitle_genres_rating = df_title_id_titleType_originalTitle_genres. \
                                                                            join(df_title_id_averageRating,
                                                                                    str(c.COLUMS_TITLE_BASICS[0]))
-    df_title_id_titleType_originalTitle_genres_rating.show()
+    df_title_id_titleType_originalTitle_genres_rating.show(30, truncate=False)
