@@ -43,4 +43,4 @@ def task8(df_title_ratings_id_averageRating, df_title_basics):
                                                 df_title_titleType_originalTitle_genres_rating_arating.genr != r'\N'). \
                                                 select('genr', 'originalTitle', 'titleType', 'averageRating')
 
-    df_title_titleType_originalTitle_genres_rating_arating.show(30, truncate=False)
+    return df_title_titleType_originalTitle_genres_rating_arating
